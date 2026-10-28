@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kito Softwares · Building Smart Tools for Daily Use</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512x512.png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Sora:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0f0d0b;
+      --bg-elevated: #1a1613;
+      --bg-card: #1f1a16;
+      --bg-card-hover: #26201b;
+      --border: #2e2620;
+      --text-primary: #f5ede4;
+      --text-secondary: #b8a894;
+      --text-muted: #8a7a68;
+      --accent: #f0a550;
+      --accent-soft: #e0893a;
+      --accent-deep: #c26e1f;
+      --gradient-warm: linear-gradient(135deg, #f0a550 0%, #e07a3a 50%, #d4602a 100%);
+      --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 20px 45px rgba(0, 0, 0, 0.65), 0 8px 20px rgba(240, 165, 80, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(240, 165, 80, 0.10) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(20px);
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -25%;
+      left: -10%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(212, 96, 42, 0.07) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(30px);
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      padding: 28px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .nav-brand .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--gradient-warm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #1a1210;
+      box-shadow: 0 6px 20px rgba(240, 165, 80, 0.3);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 100px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      background: rgba(240, 165, 80, 0.07);
+    }
+
+    .nav-cta {
+      background: rgba(240, 165, 80, 0.1) !important;
+      color: var(--accent) !important;
+      border: 1px solid rgba(240, 165, 80, 0.22);
+    }
+
+    .nav-cta:hover {
+      background: var(--gradient-warm) !important;
+      color: #1a1210 !important;
+      border-color: transparent !important;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 80px 0 40px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(240, 165, 80, 0.07);
+      border: 1px solid rgba(240, 165, 80, 0.2);
+      padding: 7px 16px 7px 10px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.3px;
+      margin-bottom: 26px;
+    }
+
+    .hero-badge .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(240, 165, 80, 0.6);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(240, 165, 80, 0.6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(240, 165, 80, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(240, 165, 80, 0);
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      margin-bottom: 22px;
+      color: var(--text-primary);
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, #ffe4c4 0%, #f0a550 55%, #e07a3a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 4px;
+      height: 12px;
+      background: linear-gradient(90deg, rgba(240, 165, 80, 0.25), rgba(224, 122, 58, 0.05));
+      border-radius: 4px;
+      z-index: -1;
+    }
+
+    .hero p.hero-sub {
+      font-size: 1.08rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin-bottom: 34px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gradient-warm);
+      color: #1a1210;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 26px;
+      border-radius: 14px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.24s ease;
+      box-shadow: 0 10px 30px rgba(240, 165, 80, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(240, 165, 80, 0.35);
+    }
+
+    .btn-primary i {
+      font-size: 0.85rem;
+      transition: transform 0.24s ease;
+    }
+
+    .btn-primary:hover i {
+      transform: translateX(3px);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 14px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.24s ease;
+    }
+
+    .btn-ghost:hover {
+      color: var(--accent);
+      border-color: rgba(240, 165, 80, 0.3);
+      background: rgba(240, 165, 80, 0.04);
+    }
+
+    /* Hero stats */
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat .num {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .hero-stat .num span {
+      color: var(--accent);
+    }
+
+    .hero-stat .label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .hero-stat-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+    }
+
+    /* ===== HERO VISUAL ===== */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-visual .glow-ring {
+      position: absolute;
+      width: 120%;
+      height: 120%;
+      max-width: 560px;
+      max-height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(240, 165, 80, 0.14) 0%, transparent 62%);
+      filter: blur(10px);
+      animation: floatGlow 7s ease-in-out infinite;
+    }
+
+    @keyframes floatGlow {
+
+      0%,
+      100% {
+        transform: scale(1) translateY(0);
+        opacity: 0.9;
+      }
+
+      50% {
+        transform: scale(1.05) translateY(-10px);
+        opacity: 1;
+      }
+    }
+
+    .hero-svg {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5));
+    }
+
+    .float-chip {
+      position: absolute;
+      background: rgba(31, 26, 22, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(240, 165, 80, 0.22);
+      border-radius: 14px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      z-index: 2;
+      animation: floatChip 5s ease-in-out infinite;
+    }
+
+    .float-chip i {
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .float-chip.chip-1 {
+      top: 6%;
+      right: -2%;
+      animation-delay: 0s;
+    }
+
+    .float-chip.chip-2 {
+      bottom: 14%;
+      left: -4%;
+      animation-delay: 1.4s;
+    }
+
+    .float-chip.chip-3 {
+      bottom: 2%;
+      right: 10%;
+      animation-delay: 2.6s;
+    }
+
+    @keyframes floatChip {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 56px 0 26px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-primary);
+    }
+
+    .section-title .icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: rgba(240, 165, 80, 0.09);
+      border: 1px solid rgba(240, 165, 80, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .section-title .count {
+      margin-left: auto;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 100px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ===== APP GRID ===== */
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 22px;
+    }
+
+    .app-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 26px 24px 22px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.28s ease,
+        box-shadow 0.28s ease,
+        background 0.28s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 24px;
+      right: 24px;
+      height: 2px;
+      background: var(--gradient-warm);
+      border-radius: 0 0 4px 4px;
+      opacity: 0;
+      transform: scaleX(0.6);
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+
+    .app-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      background: radial-gradient(600px circle at var(--mouse-x, 50%) 0%, rgba(240, 165, 80, 0.06), transparent 45%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .app-card:hover {
+      transform: translateY(-5px);
+      background: var(--bg-card-hover);
+      border-color: rgba(240, 165, 80, 0.22);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .app-card:hover::before {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .app-card:hover::after {
+      opacity: 1;
+    }
+
+    .app-icon {
+      width: 54px;
+      height: 54px;
+      background: rgba(240, 165, 80, 0.08);
+      border: 1px solid rgba(240, 165, 80, 0.16);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: var(--accent);
+      transition: all 0.28s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-card:hover .app-icon {
+      background: rgba(240, 165, 80, 0.14);
+      border-color: rgba(240, 165, 80, 0.32);
+      transform: scale(1.05) rotate(-3deg);
+      box-shadow: 0 8px 22px rgba(240, 165, 80, 0.15);
+      color: #ffc178;
+    }
+
+    .app-card h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.28rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-card .app-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      margin-bottom: 22px;
+      flex: 1;
+      line-height: 1.55;
+      position: relative;
+      z-index: 1;
+    }
+
+    .visit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(240, 165, 80, 0.06);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.24s ease;
+      border: 1px solid rgba(240, 165, 80, 0.2);
+      letter-spacing: 0.2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .visit-btn i {
+      font-size: 0.82rem;
+      transition: transform 0.24s ease;
+    }
+
+    .visit-btn:hover {
+      background: var(--gradient-warm);
+      color: #1a1210;
+      border-color: transparent;
+      box-shadow: 0 10px 26px rgba(240, 165, 80, 0.32);
+      transform: translateY(-1px);
+    }
+
+    .visit-btn:hover i {
+      color: #1a1210;
+      transform: translateX(4px);
+    }
+
+    .visit-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(240, 165, 80, 0.25);
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact-section {
+      margin-top: 72px;
+      padding: 44px 40px;
+      background: var(--bg-card);
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      scroll-margin-top: 40px;
+    }
+
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 40px;
+      right: 40px;
+      height: 2px;
+      background: var(--gradient-warm);
+      border-radius: 0 0 4px 4px;
+      opacity: 0.8;
+    }
+
+    .contact-section::after {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(240, 165, 80, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-head .icon-box-lg {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: rgba(240, 165, 80, 0.1);
+      border: 1px solid rgba(240, 165, 80, 0.22);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      box-shadow: 0 8px 24px rgba(240, 165, 80, 0.12);
+    }
+
+    .contact-head h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .contact-head p {
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.55;
+    }
+
+    .email-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px 20px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .email-box:hover {
+      border-color: rgba(240, 165, 80, 0.25);
+      box-shadow: 0 0 30px rgba(240, 165, 80, 0.06);
+    }
+
+    .email-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .email-left .mail-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(240, 165, 80, 0.08);
+      border: 1px solid rgba(240, 165, 80, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1.05rem;
+      flex-shrink: 0;
+    }
+
+    .email-meta {
+      min-width: 0;
+    }
+
+    .email-meta .email-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .email-meta a.email-address {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      word-break: break-all;
+      display: inline-block;
+    }
+
+    .email-meta a.email-address:hover {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 1.5px;
+      text-decoration-color: rgba(240, 165, 80, 0.5);
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--gradient-warm);
+      color: #1a1210;
+      font-weight: 600;
+      font-size: 0.86rem;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      box-shadow: 0 8px 22px rgba(240, 165, 80, 0.22);
+      flex-shrink: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(240, 165, 80, 0.35);
+    }
+
+    .copy-btn:active {
+      transform: translateY(0);
+    }
+
+    .copy-btn i {
+      font-size: 0.85rem;
+    }
+
+    .copy-btn.copied {
+      background: linear-gradient(135deg, #6fcf7f 0%, #3fa85a 100%);
+      box-shadow: 0 8px 22px rgba(63, 168, 90, 0.3);
+      color: #0a1a0d;
+    }
+
+    .contact-hint {
+      margin-top: 16px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-hint i {
+      color: var(--accent-soft);
+      font-size: 0.8rem;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      margin-top: 90px;
+      padding: 34px 0 36px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .made-in-india {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(240, 165, 80, 0.06);
+      padding: 10px 22px 10px 18px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--accent);
+      border: 1px solid rgba(240, 165, 80, 0.22);
+      letter-spacing: 0.3px;
+      box-shadow: 0 0 30px rgba(240, 165, 80, 0.06);
+    }
+
+    .made-in-india .flag-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 6px rgba(240, 165, 80, 0.3));
+    }
+
+    .made-in-india .divider {
+      width: 1px;
+      height: 18px;
+      background: rgba(240, 165, 80, 0.3);
+    }
+
+    .footer .copyright {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .footer .copyright i {
+      font-size: 0.8rem;
+      color: var(--accent-soft);
+      opacity: 0.8;
+    }
+
+    .footer .copyright .dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 56px 0 24px;
+        text-align: center;
+      }
+
+      .hero p.hero-sub {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        order: -1;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+
+      .hero-svg {
+        max-width: 380px;
+      }
+
+      .float-chip.chip-1 {
+        top: 2%;
+        right: 0;
+      }
+
+      .float-chip.chip-2 {
+        bottom: 10%;
+        left: 0;
+      }
+
+      .float-chip.chip-3 {
+        bottom: 0;
+        right: 4%;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav {
+        padding-top: 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 40px 0 20px;
+        gap: 36px;
+      }
+
+      .hero h1 {
+        font-size: 2.1rem;
+      }
+
+      .hero-badge {
+        font-size: 0.75rem;
+        margin-bottom: 20px;
+      }
+
+      .hero-stats {
+        gap: 24px;
+      }
+
+      .hero-stat .num {
+        font-size: 1.35rem;
+      }
+
+      .hero-stat .label {
+        font-size: 0.7rem;
+      }
+
+      .hero-stat-divider {
+        height: 32px;
+      }
+
+      .float-chip {
+        font-size: 0.72rem;
+        padding: 8px 12px;
+      }
+
+      .float-chip.chip-3 {
+        display: none;
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+        margin-top: 44px;
+        gap: 10px;
+      }
+
+      .section-title .icon-box {
+        width: 34px;
+        height: 34px;
+        font-size: 0.9rem;
+        border-radius: 10px;
+      }
+
+      .app-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .app-card {
+        padding: 22px 20px 20px;
+        border-radius: 20px;
+      }
+
+      /* Contact mobile */
+      .contact-section {
+        padding: 30px 22px;
+        border-radius: 22px;
+        margin-top: 52px;
+      }
+
+      .contact-head {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .contact-head h2 {
+        font-size: 1.4rem;
+      }
+
+      .contact-head p {
+        font-size: 0.92rem;
+      }
+
+      .email-box {
+        padding: 16px;
+        gap: 14px;
+      }
+
+      .email-left {
+        gap: 12px;
+      }
+
+      .email-meta a.email-address {
+        font-size: 0.92rem;
+      }
+
+      .copy-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 16px;
+      }
+
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        margin-top: 64px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    ::selection {
+      background: rgba(240, 165, 80, 0.3);
+      color: #fff3e4;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3a2e24;
+      border-radius: 10px;
+      border: 2px solid var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4d3d30;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- ===== NAV ===== -->
+    <nav class="nav">
+      <div class="nav-brand">
+        <span class="logo-mark">
+          <i class="fas fa-cube"></i>
+        </span>
+        Kito Softwares
+        <br>
+        
+      </div>
+      <br>
+      
+      <div class="nav-links">
+        <a href="#web-apps">Web Apps</a>
+        <a href="#mobile-apps">Mobile Apps</a>
+        <a href="#contact" class="nav-cta">Contact Us</a>
+      </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse"></span>
+          MSME Registered · Made in India
+        </div>
+
+        <h1>
+          Smart tools,<br>
+          <span class="highlight">beautifully simple.</span>
+        </h1>
+
+        <p class="hero-sub">
+          Simple, fast, and reliable tools for the web and mobile — built in India,
+          designed for everyone.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#web-apps" class="btn-primary">
+            Explore Apps <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="#contact" class="btn-ghost">
+            <i class="fas fa-envelope"></i> Contact Us
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num">7<span>+</span></div>
+            <div class="label">Apps Shipped</div>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <div class="num">100<span>%</span></div>
+            <div class="label">Made in India</div>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <div class="num">MSME</div>
+            <div class="label">Certified</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual -->
+      <div class="hero-visual">
+        <div class="glow-ring"></div>
+
+        <div class="float-chip chip-1">
+          <i class="fas fa-bolt"></i> Fast & Lightweight
+        </div>
+        <div class="float-chip chip-2">
+          <i class="fas fa-mobile-screen"></i> Mobile First
+        </div>
+        <div class="float-chip chip-3">
+          <i class="fas fa-shield-halved"></i> Privacy Friendly
+        </div>
+
+        <!-- Custom SVG illustration -->
+        <svg class="hero-svg" viewBox="0 0 520 440" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="winGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#241d17" />
+              <stop offset="100%" stop-color="#1a1511" />
+            </linearGradient>
+            <linearGradient id="accentGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f0a550" />
+              <stop offset="100%" stop-color="#d4602a" />
+            </linearGradient>
+            <linearGradient id="accentSoft" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f0a550" stop-opacity="0.9" />
+              <stop offset="100%" stop-color="#e07a3a" stop-opacity="0.6" />
+            </linearGradient>
+            <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#f0a550" stop-opacity="0.85" />
+              <stop offset="100%" stop-color="#d4602a" stop-opacity="0.5" />
+            </linearGradient>
+          </defs>
+
+          <rect x="60" y="60" width="400" height="300" rx="26" fill="url(#winGrad)" stroke="#3a2f26"
+            stroke-width="1.5" />
+          <rect x="60" y="60" width="400" height="46" rx="26" fill="#2a221c" />
+          <rect x="60" y="84" width="400" height="22" fill="#2a221c" />
+          <circle cx="88" cy="83" r="6" fill="#d4602a" />
+          <circle cx="108" cy="83" r="6" fill="#e0893a" />
+          <circle cx="128" cy="83" r="6" fill="#f0a550" />
+          <rect x="156" y="74" width="220" height="18" rx="9" fill="#1a1511" stroke="#3a2f26" />
+          <circle cx="172" cy="83" r="4" fill="#4d3d30" />
+          <rect x="186" y="80" width="120" height="6" rx="3" fill="#3a2f26" />
+
+          <rect x="84" y="126" width="94" height="210" rx="16" fill="#1a1511" stroke="#3a2f26" />
+          <rect x="98" y="144" width="66" height="10" rx="5" fill="url(#accentGrad)" />
+          <rect x="98" y="168" width="66" height="8" rx="4" fill="#3a2f26" />
+          <rect x="98" y="188" width="50" height="8" rx="4" fill="#3a2f26" />
+          <rect x="98" y="208" width="58" height="8" rx="4" fill="#3a2f26" />
+          <rect x="98" y="228" width="44" height="8" rx="4" fill="#3a2f26" />
+          <rect x="98" y="248" width="60" height="8" rx="4" fill="#3a2f26" />
+
+          <rect x="196" y="130" width="240" height="86" rx="14" fill="#241d17" stroke="#3a2f26" />
+          <circle cx="222" cy="158" r="14" fill="url(#accentGrad)" />
+          <path d="M217 158l3.5 3.5 7-7" stroke="#1a1210" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <rect x="246" y="146" width="120" height="10" rx="5" fill="#f5ede4" opacity="0.85" />
+          <rect x="246" y="164" width="160" height="7" rx="3.5" fill="#3a2f26" />
+          <rect x="246" y="178" width="130" height="7" rx="3.5" fill="#3a2f26" />
+          <rect x="222" y="194" width="60" height="8" rx="4" fill="url(#accentSoft)" />
+
+          <rect x="196" y="228" width="115" height="108" rx="14" fill="#241d17" stroke="#3a2f26" />
+          <circle cx="220" cy="252" r="11" fill="rgba(240,165,80,0.15)" stroke="url(#accentGrad)" stroke-width="1.5" />
+          <rect x="238" y="246" width="56" height="8" rx="4" fill="#f5ede4" opacity="0.75" />
+          <rect x="210" y="272" width="86" height="6" rx="3" fill="#3a2f26" />
+          <rect x="210" y="286" width="70" height="6" rx="3" fill="#3a2f26" />
+          <rect x="210" y="306" width="90" height="14" rx="7" fill="url(#barGrad)" opacity="0.9" />
+
+          <rect x="321" y="228" width="115" height="108" rx="14" fill="#241d17" stroke="#3a2f26" />
+          <circle cx="345" cy="252" r="11" fill="rgba(240,165,80,0.15)" stroke="url(#accentGrad)" stroke-width="1.5" />
+          <rect x="363" y="246" width="56" height="8" rx="4" fill="#f5ede4" opacity="0.75" />
+          <rect x="335" y="272" width="86" height="6" rx="3" fill="#3a2f26" />
+          <rect x="335" y="286" width="70" height="6" rx="3" fill="#3a2f26" />
+          <rect x="335" y="306" width="90" height="14" rx="7" fill="url(#barGrad)" opacity="0.9" />
+
+          <g transform="translate(20, 300)">
+            <rect x="0" y="0" width="110" height="130" rx="20" fill="#241d17" stroke="#4a3c30" stroke-width="1.5" />
+            <rect x="14" y="16" width="82" height="46" rx="10" fill="#1a1511" stroke="#3a2f26" />
+            <circle cx="36" cy="39" r="10" fill="url(#accentGrad)" />
+            <path d="M33 39l2.5 2.5 5-5" stroke="#1a1210" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <rect x="52" y="30" width="34" height="6" rx="3" fill="#f5ede4" opacity="0.7" />
+            <rect x="52" y="42" width="24" height="5" rx="2.5" fill="#3a2f26" />
+            <rect x="14" y="72" width="82" height="6" rx="3" fill="#3a2f26" />
+            <rect x="14" y="86" width="60" height="6" rx="3" fill="#3a2f26" />
+            <rect x="14" y="104" width="82" height="14" rx="7" fill="url(#accentGrad)" opacity="0.9" />
+          </g>
+
+          <g transform="translate(430, 24)">
+            <circle cx="28" cy="28" r="28" fill="#241d17" stroke="url(#accentGrad)" stroke-width="1.5" />
+            <path d="M16 28l7 7 13-13" stroke="url(#accentGrad)" stroke-width="3.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </g>
+
+          <circle cx="36" cy="120" r="3.5" fill="#f0a550" opacity="0.7" />
+          <circle cx="480" cy="240" r="3" fill="#e07a3a" opacity="0.6" />
+          <circle cx="500" cy="150" r="2.5" fill="#f0a550" opacity="0.5" />
+          <circle cx="30" cy="260" r="2.5" fill="#e0893a" opacity="0.5" />
+          <path d="M480 380l4 4 4-4 4 4" stroke="#f0a550" stroke-width="2" stroke-linecap="round" opacity="0.4"
+            fill="none" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===== WEB APPS ===== -->
+    <h2 class="section-title" id="web-apps">
+      <span class="icon-box"><i class="fas fa-globe"></i></span>
+      Web Apps
+      <span class="count">4 apps</span>
+    </h2>
+
+    <div class="app-grid">
+      <div class="app-card">
+        <div class="app-icon"><i class="fas fa-calculator"></i></div>
+        <h3>Snappycalc.com</h3>
+        <p class="app-desc">Fast, minimal calculator with history and keyboard support — built for quick everyday math.
+        </p>
+        <a href="https://www.snappycalc.com/" class="visit-btn" target="_blank" rel="noopener">Visit <i
+            class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="app-card">
+        <div class="app-icon"><i class="fas fa-ruler-vertical"></i></div>
+        <h3>HeightCompare.online</h3>
+        <p class="app-desc">Compare heights visually and see the difference instantly. A simple, fun tool for all ages.
+        </p>
+        <a href="https://www.heightcompare.online/" class="visit-btn" target="_blank" rel="noopener">Visit <i
+            class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="app-card">
+        <div class="app-icon"><i class="fas fa-gamepad"></i></div>
+        <h3>GamersFly.com</h3>
+        <p class="app-desc">Curated gaming deals, news and community picks — level up your entire gaming experience.</p>
+        <a href="https://www.gamersfly.com/" class="visit-btn" target="_blank" rel="noopener">Visit <i
+            class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- NEW: imgbit.app -->
+      <div class="app-card">
+        <div class="app-icon"><i class="fas fa-image"></i></div>
+        <h3>ImgBit.app</h3>
+        <p class="app-desc">Quick, clean image tools — compress, convert and optimize images right in your browser.</p>
+        <a href="https://www.imgbit.app/" class="visit-btn" target="_blank" rel="noopener">Visit <i
+            class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- ===== MOBILE APPS ===== -->
+    <h2 class="section-title" id="mobile-apps">
+      <span class="icon-box"><i class="fas fa-mobile-alt"></i></span>
+      Mobile Apps
+      <span class="count">3 apps</span>
+    </h2>
+
+    <div class="app-grid">
+      <div class="app-card">
+        <div class="app-icon"><i class="fas fa-qrcode"></i></div>
+        <h3>QR Code Scanner</h3>
+        <p class="app-desc">Lightning-fast QR & barcode scanner. Save history, auto-detect links, and stay secure.</p>
+        <a href="#" class="visit-btn" target="_blank" rel="noopener">Visit <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="app-card">
+        <div class="app-icon"><i class="fas fa-compress-alt"></i></div>
+        <h3>Image Compressor</h3>
+        <p class="app-desc">Reduce image size without losing quality. Batch compress, convert, and resize on the go.</p>
+        <a href="#" class="visit-btn" target="_blank" rel="noopener">Visit <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="app-card">
+        <div class="app-icon"><i class="fas fa-toolbox"></i></div>
+        <h3>Utility Toolkit</h3>
+        <p class="app-desc">More handy tools coming soon — unit converters, text utilities, and daily helpers.</p>
+        <a href="#" class="visit-btn" target="_blank" rel="noopener">Visit <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section class="contact-section" id="contact">
+      <div class="contact-head">
+        <div class="icon-box-lg"><i class="fas fa-paper-plane"></i></div>
+        <div>
+          <h2>Let's talk</h2>
+          <p>Have a question, a feature request, or a project idea? Drop us an email — we usually reply within a day.
+          </p>
+        </div>
+      </div>
+
+      <div class="email-box">
+        <div class="email-left">
+          <div class="mail-icon"><i class="fas fa-envelope"></i></div>
+          <div class="email-meta">
+            <div class="email-label">Email us at</div>
+            <!-- Replace the email below with your real one -->
+            <a class="email-address" id="emailAddress" href="mailto:info@kitosoftwares.com">info@kitosoftwares.com</a>
+          </div>
+        </div>
+        <button class="copy-btn" id="copyEmailBtn" type="button">
+          <i class="fas fa-copy"></i> <span>Copy Email</span>
+        </button>
+      </div>
+
+      <div class="contact-hint">
+        <i class="fas fa-lightbulb"></i>
+        Tip: click the email to open your mail app, or hit "Copy Email" to paste it anywhere.
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="footer">
+      <div class="made-in-india">
+        <span class="flag-icon">🇮🇳</span>
+        <span class="divider"></span>
+        <span>Made in India</span>
+      </div>
+      <div class="copyright">
+        <i class="far fa-copyright"></i> 2025 Kito Softwares
+        <span class="dot"></span> MSME
+        <span class="dot"></span> All rights reserved
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Mouse-tracking glow on cards
+    document.querySelectorAll('.app-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        card.style.setProperty('--mouse-x', `${x}%`);
+      });
+    });
+
+    // ===== Copy Email functionality =====
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const emailEl = document.getElementById('emailAddress');
+
+    copyBtn.addEventListener('click', async () => {
+      const email = emailEl.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(email);
+      } catch (err) {
+        // Fallback for older browsers / non-secure contexts
+        const temp = document.createElement('textarea');
+        temp.value = email;
+        document.body.appendChild(temp);
+        temp.select();
+        try { document.execCommand('copy'); } catch (e) { /* ignore */ }
+        document.body.removeChild(temp);
+      }
+
+      // Visual feedback
+      const originalHTML = copyBtn.innerHTML;
+      copyBtn.classList.add('copied');
+      copyBtn.innerHTML = '<i class="fas fa-check"></i> <span>Copied!</span>';
+
+      setTimeout(() => {
+        copyBtn.classList.remove('copied');
+        copyBtn.innerHTML = originalHTML;
+      }, 2000);
+    });
+  </script>
+</body>
+
+</html>
